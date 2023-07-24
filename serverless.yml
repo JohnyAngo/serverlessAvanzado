@@ -17,8 +17,9 @@ provider:
     BUCKET: bucket-serverless-course-jango
 
 plugins:
-  # - serverless-offline
-  - serverless-dynamodb-local
+  # - serverless-apigateway-service-proxy
+  # - serverless-lift
+  # - serverless-domain-manager
 
 package:
   individually: true
@@ -108,6 +109,8 @@ functions:
                 filename: true
   thumbGenerator:
     handler: thumbnail/handler.thumbnailGenerator
+    layers:
+      - { Ref: BaseLambdaLayer }
     package:
       patterns:
         - "thumbnail/handler.js"
@@ -118,6 +121,14 @@ functions:
           existing: true
           rules:
            - prefix: upload/
+
+layers:
+  base:
+    name: "prd-dependencies"
+    compatibleRuntimes:
+      - "nodejs14.x"
+    package:
+      artifact: nodejs.zip
 
 resources:
   Resources:
