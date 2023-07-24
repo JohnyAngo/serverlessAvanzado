@@ -22,6 +22,7 @@ plugins:
   # - serverless-apigateway-service-proxy
   # - serverless-lift
   # - serverless-domain-manager
+  #
 
 package:
   individually: true
@@ -123,7 +124,7 @@ functions:
           event: s3:ObjectCreated:*
           existing: true
           rules:
-           - prefix: upload/
+            - prefix: upload/
 
 layers:
   base:
